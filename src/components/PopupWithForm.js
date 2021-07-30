@@ -5,7 +5,7 @@ export default function PopupWithForm(props) {
             <form name={props.name} className="popup__form form">
                 <h3 className="popup__title">{props.title}</h3>
                 {props.children}
-                <button type="submit" className="popup__save-button popup__submit">Сохранить</button>
+                <button type="submit" className="popup__save-button popup__submit">{props.buttonName}</button>
             </form>
             <button onClick={props.onClose} type="button" className="popup__close-button" id="closeDeleteButton"></button>
             </div>
