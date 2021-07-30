@@ -11,19 +11,28 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
     const [userAvatar, setUserAvatar] = useState('');
     const [cards, setCards] = useState([]);
 
-    Promise.all([
-        api.getInfo(),
-        api.getInitialCards()
-    ])
-    .then((res)=>{ 
-        setUserName(res[0].name)
-        setUserJob(res[0].about)
-        setUserAvatar(res[0].avatar)
-        setCards(res[1])
-    })
-    .catch((err)=>{
-        console.log(`Ошибка: ${err.status}`);
-    }) 
+    useEffect(() => { 
+        api.getInfo() 
+            .then(res => { 
+                setUserName(res.name) 
+                setUserJob(res.about) 
+                setUserAvatar(res.avatar) 
+            }) 
+            .catch(res => { 
+                console.log(`Ошибка: ${res.status}`); 
+            }) 
+
+    }, []); 
+ 
+    useEffect(() => { 
+            api.getInitialCards() 
+                .then(res => { 
+                    setCards(res) 
+                }) 
+                .catch(res => { 
+                    console.log(`Ошибка: ${res.status}`); 
+                }) 
+        }, []); 
 
     return (
         <main className="content">
