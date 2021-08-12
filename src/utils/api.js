@@ -12,13 +12,13 @@ class Api {
     .then((res) => this._check(res))
   }
 
-  addNewCard(data) {
+  addNewCard(name, link) {
     return fetch(`${this._base_url}/cards`, {
       method: 'POST',
       headers: this._token,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link
+        name: name,
+        link: link
       })
     })
     .then(this._check)
@@ -46,38 +46,46 @@ class Api {
       headers: this._token,
       body: JSON.stringify({
         name: data.name,
-        about: data.job
+        about: data.about
       })
     })
     .then(this._check)
   }
 
-  setAvatar(data) {
+  setAvatar(link) {
     return fetch(`${this._base_url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._token,
       body: JSON.stringify({
-        avatar: data.link
+        avatar: link
       })
     })
     .then(this._check)
   }
 
-  setLike(data) {
-    return fetch(`${this._base_url}/cards/likes/${data._id}`, {
-      method: 'PUT',
-      headers: this._token
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this._base_url}/cards/likes/${cardId}`, {
+      method: isLiked ? 'PUT' : 'DELETE',
+      headers: this._token,
     })
     .then(this._check)
   }
 
-  removeLike(data) {
-    return fetch(`${this._base_url}/cards/likes/${data._id}`, {
-      method: 'DELETE',
-      headers: this._token
-    })
-    .then(this._check)
-  }
+  // setLike(data) {
+  //   return fetch(`${this._base_url}/cards/likes/${data._id}`, {
+  //     method: 'PUT',
+  //     headers: this._token
+  //   })
+  //   .then(this._check)
+  // }
+
+  // removeLike(data) {
+  //   return fetch(`${this._base_url}/cards/likes/${data._id}`, {
+  //     method: 'DELETE',
+  //     headers: this._token
+  //   })
+  //   .then(this._check)
+  // }
 
   _check(res) {
     if (res.ok) {

@@ -1,38 +1,11 @@
-import '../index.css';
-import {useState, useEffect} from 'react';
-import { api } from '../utils/api';
+import React from 'react';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
+export default function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete}) {
 
-    const [userName, setUserName] = useState('');
-    const [userJob, setUserJob] = useState('');
-    const [userAvatar, setUserAvatar] = useState('');
-    const [cards, setCards] = useState([]);
-
-    useEffect(() => { 
-        api.getInfo() 
-            .then(res => { 
-                setUserName(res.name) 
-                setUserJob(res.about) 
-                setUserAvatar(res.avatar) 
-            }) 
-            .catch(res => { 
-                console.log(`Ошибка: ${res.status}`); 
-            }) 
-
-    }, []); 
- 
-    useEffect(() => { 
-            api.getInitialCards() 
-                .then(res => { 
-                    setCards(res) 
-                }) 
-                .catch(res => { 
-                    console.log(`Ошибка: ${res.status}`); 
-                }) 
-        }, []); 
+    const currentUser = React.useContext(CurrentUserContext);
 
     return (
         <main className="content">
@@ -40,14 +13,14 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
             <section className="profile">
             <div className="profile__description">
                 <div className="profile__avatar-box">
-                <button onClick={onEditAvatar} className="profile__avatar-edit-button"><img src={userAvatar} class="profile__avatar" alt="Аватар" /></button>
+                <button onClick={onEditAvatar} className="profile__avatar-edit-button"><img src={currentUser.avatar} class="profile__avatar" alt="Аватар" /></button>
                 </div>
                 <div className="profile__info">
                 <div className="profile__name-button">
-                    <h1 className="profile__name">{userName}</h1>
+                    <h1 className="profile__name">{currentUser.name}</h1>
                     <button onClick={onEditProfile} className="profile__edit-button" type="button"></button>
                 </div>
-                <p className="profile__job">{userJob}</p>
+                <p className="profile__job">{currentUser.about}</p>
                 </div>
             </div>
             <button onClick={onAddPlace} className="profile__add-button" type="button"></button>
@@ -56,7 +29,12 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
             <section className="places">
             <ul className="places__list">
             {cards.map((item) => (
-                <Card key={item._id} card={item} onClick={onCardClick} />
+                <Card 
+                    key={item._id} 
+                    card={item} 
+                    onClick={onCardClick}
+                    onCardLike={onCardLike}
+                    onCardDelete={onCardDelete} />
             ))}
             </ul>
             </section>  
