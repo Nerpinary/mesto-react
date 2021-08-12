@@ -70,23 +70,7 @@ class Api {
     })
     .then(this._check)
   }
-
-  // setLike(data) {
-  //   return fetch(`${this._base_url}/cards/likes/${data._id}`, {
-  //     method: 'PUT',
-  //     headers: this._token
-  //   })
-  //   .then(this._check)
-  // }
-
-  // removeLike(data) {
-  //   return fetch(`${this._base_url}/cards/likes/${data._id}`, {
-  //     method: 'DELETE',
-  //     headers: this._token
-  //   })
-  //   .then(this._check)
-  // }
-
+  
   _check(res) {
     if (res.ok) {
       return res.json();
@@ -95,9 +79,11 @@ class Api {
   }
 }
 
-export const api = new Api({
+const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-25',
   token: {
     authorization: '279ec5ff-9344-4c5f-b9ff-6ef489a3fe7d',
     'Content-Type': 'application/json'
 },});
+
+export default api;

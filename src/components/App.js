@@ -6,7 +6,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
-import { api } from "../utils/api";
+import api from "../utils/api";
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function App() {
