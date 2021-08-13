@@ -3,12 +3,20 @@ import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
   const avatarRef = React.useRef();
+  const [avatar, setAvatar] = React.useState('');
+
+  function handleSetAvatar(e) {
+    setAvatar(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     props.onEditAvatar(avatarRef.current.value);
-    e.target.reset();
   }
+
+  React.useEffect(() => {
+    setAvatar('');
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm
@@ -20,7 +28,9 @@ function EditAvatarPopup(props) {
       onSubmit={handleSubmit}
     >
       <input
+        onChange={handleSetAvatar}
         ref={avatarRef}
+        value={avatar || ''}
         type='url'
         name='inputAvatarLink'
         id='avatar-link-input'

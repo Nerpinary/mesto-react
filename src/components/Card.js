@@ -26,7 +26,7 @@ function Card(props) {
 
   return (
     <li className="place">
-      <img onClick={handleCardClick} src={props.card.link} className="place__image" alt={props.name} />
+      <img onClick={handleCardClick} src={props.card.link} className="place__image" alt={props.card.name} />
       <button onClick={handleDeleteClick} className={cardDeleteButtonClassName} type="button"></button>
       <div className="place__text">
         <h2 className="place__name">{props.card.name}</h2>

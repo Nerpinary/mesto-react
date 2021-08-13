@@ -13,7 +13,7 @@ export default function Main({cards, onEditProfile, onAddPlace, onEditAvatar, on
             <section className="profile">
             <div className="profile__description">
                 <div className="profile__avatar-box">
-                <button onClick={onEditAvatar} className="profile__avatar-edit-button"><img src={currentUser.avatar} class="profile__avatar" alt="Аватар" /></button>
+                <button onClick={onEditAvatar} className="profile__avatar-edit-button"><img src={currentUser.avatar} className="profile__avatar" alt="Аватар" /></button>
                 </div>
                 <div className="profile__info">
                 <div className="profile__name-button">
